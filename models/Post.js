@@ -1,7 +1,20 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Post extends Model {}
+class Post extends Model {
+  static async favorite(user_id, post_id, Favorite, Post) {
+    await Favorite.create({
+      user_id,
+      post_id
+    });
+
+    return await Post.findOne({
+      where: {
+        id: post_id
+      }
+    });
+  }
+}
 
 Post.init(
   {
