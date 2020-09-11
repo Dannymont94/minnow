@@ -23,6 +23,10 @@ Post.init(
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
+    },    
+    source: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     path: {
       type: DataTypes.STRING,
