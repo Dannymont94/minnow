@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Favorite } = require('../../models');
+const takeScreenshot = require('../../utils/screenshot');
 
 // get all posts
 router.get('/', async (req, res) => {
@@ -35,17 +36,24 @@ router.get('/:id', async (req, res) => {
 });
 
 // create new post
-router.post('/', async (req, res) => {
+router.post('/url', async (req, res) => {
   try {
-    const { path, caption, palette } = req.body;
+    const { url, caption, palette } = req.body;
     const { user_id } = req.session;
-    if (!path || !caption || !Array.isArray(palette) || palette.length === 0 || !user_id) {
-      res.status(400).json({ message: `Needs values for path, caption, palette, and user_id` });
+    if (!url || !Array.isArray(palette) || palette.length === 0 || !user_id) {
+      res.status(400).json({ message: `Needs values for url, palette, and user_id. Value for caption can be null.` });
       return;
     }
 
+    // const screenshot is binary string of image returned by puppeteer
+    // takeScreenshot currently saves an image to the public folder every time the function is called. We can remove this part of the code once we have the S3 bucket route working.
+    const { screenshot , fileName } = await takeScreenshot(url);
+    
+    // code to save image to S3 bucket can either go here or in the takeScreenshot function
+
     const dbPostData = await Post.create({
-      path,
+      source: url,
+      path: fileName,
       caption,
       palette,
       user_id
