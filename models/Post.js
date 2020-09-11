@@ -20,8 +20,14 @@ Post.init(
       allowNull: true,
     },
     palette: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
+      get() {
+        return this.getDataValue('palette').split(';');
+      },
+      set(value) {
+        return this.setDataValue('palette', value.join(';'));
+      }
     },
     user_id: {
       type: DataTypes.INTEGER,
