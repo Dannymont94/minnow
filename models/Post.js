@@ -14,6 +14,24 @@ class Post extends Model {
       }
     });
   }
+  
+  static async unfavorite(user_id, post_id, Favorite) {
+    return await Favorite.destroy({
+      where: {
+        user_id,
+        post_id
+      }
+    });
+  }
+
+  static async findFavorite(user_id, post_id, Favorite) {
+    return await Favorite.findOne({
+      where: {
+        user_id,
+        post_id
+      }
+    });
+  }
 }
 
 Post.init(

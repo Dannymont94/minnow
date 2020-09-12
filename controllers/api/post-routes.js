@@ -75,7 +75,17 @@ router.put('/favorite', async (req, res) => {
       return;
     }
 
-    const updatedFavoriteData = await Post.favorite(req.session.user_id, req.body.post_id, Favorite, Post);
+    const favoriteData = await Post.findFavorite(req.session.user_id, req.body.post_id, Favorite);
+
+    let updatedFavoriteData;
+    
+    if (favoriteData) {
+      // if combination of user_id and post_id already exists in favorite table
+      updatedFavoriteData = await Post.unfavorite(req.session.user_id, req.body.post_id, Favorite);
+    } else {
+      // if that combination does not exist in favorite table
+      updatedFavoriteData = await Post.favorite(req.session.user_id, req.body.post_id, Favorite, Post);
+    }
 
     res.status(200).json(updatedFavoriteData);
 
