@@ -2,14 +2,11 @@ const fs = require('fs');
 const AWS = require('aws-sdk');
 const takeScreenshot = require('./screenshot');
 // AWS S3 info
-// const { BUCKET_NAME, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } = process.env;
+const { BUCKET_NAME, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } = process.env;
 
-// const s3 = new AWS.S3({
-//     accessKeyId: AWS_ACCESS_KEY,
-//     secretAccessKey: AWS_SECRET_ACCESS_KEY
-// });
-const ID = 'AKIAJJ2SL4L33TR4CHPA';
-const SECRET = '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';
+
+const ID = process.env.AWS_ACCESS_KEY;
+const SECRET = process.env.AWS_SECRET_ACCESS_KEY;
 
 const s3 = new AWS.S3({
     accessKeyId: ID,
