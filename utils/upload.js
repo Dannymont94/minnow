@@ -2,13 +2,19 @@ const fs = require('fs');
 const AWS = require('aws-sdk');
 const takeScreenshot = require('./screenshot');
 // AWS S3 info
-const { BUCKET_NAME, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } = process.env;
+// const { BUCKET_NAME, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } = process.env;
+
+// const s3 = new AWS.S3({
+//     accessKeyId: AWS_ACCESS_KEY,
+//     secretAccessKey: AWS_SECRET_ACCESS_KEY
+// });
+const ID = 'AKIAJJ2SL4L33TR4CHPA';
+const SECRET = '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';
 
 const s3 = new AWS.S3({
-    accessKeyId: AWS_ACCESS_KEY,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY
+    accessKeyId: ID,
+    secretAccessKey: SECRET
 });
-
 
 const uploadFile = (fileName) => {
     
@@ -18,7 +24,7 @@ const uploadFile = (fileName) => {
     // S3 upload parameters
     const params = {
         Bucket: BUCKET_NAME,
-        Key: imageName, 
+        Key: 'test.jpg', // test image file
         Body: fileContent
     };
 

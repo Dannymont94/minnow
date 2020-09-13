@@ -3,6 +3,8 @@ const multer = require('multer');
 const upload = multer();
 const { User, Post, Favorite } = require('../../models');
 const takeScreenshot = require('../../utils/screenshot');
+const uploadFile = require('../../utils/upload');
+const aws = require('aws-sdk');
 
 // get all posts
 router.get('/', async (req, res) => {
@@ -57,7 +59,55 @@ router.post('/url', async (req, res) => {
     
     // const imageBin is binary string of image returned by puppeteer
     // code to save image to S3 bucket should be imported from the utils folder and go here
+    uploadFile;
+    console.log(data);
+
+    // uploadFile(req, res, (err) => {
+    //   // console.log( 'requestOkokok', req.file );
+    //   // console.log( 'error', error );
+    //   if( err ){
+    //     console.log(err);
+    //   } else {
+    //     // If File not found
+    //     if( req.file === undefined ){
+    //       console.log( 'Error: No File Selected!' );
+    //       res.json( 'Error: No File Selected' );
+    //     } else {
+    //     // If Success
+    //     const imageName = req.file.key;
+    //     const imageLocation = req.file.location;
+
+    //     res.json( {
+    //       image: imageName,
+    //       location: imageLocation
+    //     })
+    //   }
+    // }
+    //   //  });
+  //    uploadFile = (fileName) => {
+    
+  //     const fileContent = fs.readFileSync(fileName);
+  //     const imageName = takeScreenshot.fileName;
+  
+  //     // S3 upload parameters
+  //     const params = {
+  //         Bucket: BUCKET_NAME,
+  //         Key: 'test.jpg', 
+  //         Body: fileContent
+  //     };
+  
+  //     // Uploading files to S3
+  //     s3.upload(params, function(err, data) {
+  //         if (err) {
+  //             throw err;
+  //         }
+  //         console.log(`File uploaded successfully. ${data.Location}`);
+  //     });
+  //     uploadFile();
+  // };
+
     // save image in S3 bucket with fileName as the file name
+
 
     // code to parse color palette will go here. Hard-coding palette for now.
     const palette = ["#aa72a6", "#5876d3", "#04d010", "#2d499e", "#ff8161"];
@@ -99,6 +149,7 @@ router.post('/file', upload.single('file'), async (req, res) => {
 
     // const imageBin is binary string of uploaded image
     // code to save image to S3 bucket should be imported from the utils folder and go here
+    
     // save image in S3 bucket with const fileName as the file name
 
     // code to parse color palette will go here. Hard-coding palette for now.
@@ -146,6 +197,7 @@ router.put('/favorite', async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
+  
 });
 
 // edit post by id
