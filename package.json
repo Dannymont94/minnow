@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Dannymont94/project-2#readme",
   "dependencies": {
+    "aws-sdk": "^2.751.0",
     "bcrypt": "^5.0.0",
     "connect-session-sequelize": "^7.0.1",
     "dotenv": "^8.2.0",
