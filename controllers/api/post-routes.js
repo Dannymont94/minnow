@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const multer = require('multer');
+const upload = multer();
 const { User, Post, Favorite } = require('../../models');
 const takeScreenshot = require('../../utils/screenshot');
 
@@ -35,24 +37,75 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// create new post
+// create new post from url screenshot
 router.post('/url', async (req, res) => {
   try {
-    const { url, caption, palette } = req.body;
+    const { url, caption } = req.body;
     const { user_id } = req.session;
-    if (!url || !Array.isArray(palette) || palette.length === 0 || !user_id) {
-      res.status(400).json({ message: `Needs values for url, palette, and user_id. Value for caption can be null.` });
+    if (!url) {
+      res.status(400).json({ message: `Needs value for url. Value for caption can be null.` });
       return;
     }
 
-    // const screenshot is binary string of image returned by puppeteer
+    if (!user_id) {
+      res.status(400).json({ message: `Missing user_id.` });
+      return;
+    }
+
     // takeScreenshot currently saves an image to the public folder every time the function is called. We can remove this part of the code once we have the S3 bucket route working.
-    const { screenshot , fileName } = await takeScreenshot(url);
+    const { screenshot: imageBin , fileName } = await takeScreenshot(url);
     
-    // code to save image to S3 bucket can either go here or in the takeScreenshot function
+    // const imageBin is binary string of image returned by puppeteer
+    // code to save image to S3 bucket should be imported from the utils folder and go here
+    // save image in S3 bucket with fileName as the file name
+
+    // code to parse color palette will go here. Hard-coding palette for now.
+    const palette = ["#aa72a6", "#5876d3", "#04d010", "#2d499e", "#ff8161"];
 
     const dbPostData = await Post.create({
       source: url,
+      path: fileName,
+      caption,
+      palette,
+      user_id
+    });
+
+    res.status(200).json(dbPostData);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+// create new post from uploaded local file
+router.post('/file', upload.single('file'), async (req, res) => {
+  try {
+    const { buffer: imageBin } = req.file;
+    const { caption } = req.body;
+    const { user_id } = req.session;
+
+    if (!imageBin) {
+      res.status(400).json({ message: `Missing value for file. Caption value can be null` });
+      return;
+    }
+
+    if (!user_id) {
+      res.status(400).json({ message: `Missing user_id.` });
+      return;
+    }
+
+    const fileName = Date.now();
+
+    // const imageBin is binary string of uploaded image
+    // code to save image to S3 bucket should be imported from the utils folder and go here
+    // save image in S3 bucket with const fileName as the file name
+
+    // code to parse color palette will go here. Hard-coding palette for now.
+    const palette = ["#aa72a6", "#5876d3", "#04d010", "#2d499e", "#ff8161"];
+
+    const dbPostData = await Post.create({
+      source: 'Local file uploaded',
       path: fileName,
       caption,
       palette,
