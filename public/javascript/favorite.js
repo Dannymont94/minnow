@@ -1,10 +1,11 @@
 async function favoriteHandler(event) {
-  if (event.target.className !== "favorite-input") {
+  if (event.target.className !== "favorite-checkbox") {
     return;
   }
 
+  // store value before checkbox was clicked and disable checkbox
   const wasChecked = !event.target.checked;
-  event.target.disabled= true;
+  event.target.disabled = true;
 
   // traverse up DOM tree until it finds an element with class "post", and then return data-post-id of that element
   const post_id = event.target.closest(".post").dataset.postId;
@@ -20,8 +21,10 @@ async function favoriteHandler(event) {
   });
 
   if (response.ok) {
-    event.target.disabled= false;
+    // re-enable checkbox
+    event.target.disabled = false;
   } else {
+    // set checkbox to status from before being clicked and re-enable checkbox
     event.target.checked = wasChecked;
     event.target.disabled = false;
   }
