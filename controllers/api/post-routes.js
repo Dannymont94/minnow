@@ -90,7 +90,7 @@ router.post('/url', async (req, res) => {
 });
 
 // create new post from uploaded local file
-router.post('/file', upload.single('file'), async (req, res) => {
+router.post('/file', upload.array('upl',1), async (req, res) => {
   try {
     const { buffer: imageBin } = req.file;
     const { caption } = req.body;
@@ -112,6 +112,7 @@ router.post('/file', upload.single('file'), async (req, res) => {
     // code to save image to S3 bucket should be imported from the utils folder and go here
     
     // save image in S3 bucket with const fileName as the file name
+    // function added to the router.post declaration "upload.array('upl',1)" this will run the function from upload.js
 
     // code to parse color palette will go here. Hard-coding palette for now.
     const palette = ["#aa72a6", "#5876d3", "#04d010", "#2d499e", "#ff8161"];
