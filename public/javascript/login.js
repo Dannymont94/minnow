@@ -1,3 +1,23 @@
+const loginForm = document.getElementById('login-form');
+const submitBtn = document.getElementById('submit-btn');
+
+async function validateForm() {
+  let canSubmit = true;
+
+  for (let i = 0; i < signupForm.length - 1; i++) {
+    const current = signupForm[i];
+    if (/\s/.test(current.value)) {
+      // contains whitespace characters
+      canSubmit = false;
+    } else if (current.value.length == 0) {
+      // input is blank
+      canSubmit = false;
+    }
+  }
+
+  submitBtn.disabled = !canSubmit;
+}
+
 async function loginFormHandler(event) {
   event.preventDefault();
 
@@ -21,4 +41,8 @@ async function loginFormHandler(event) {
   }
 }
 
-document.getElementById('login-form').addEventListener('submit', loginFormHandler);
+submitBtn.disabled = true;
+
+loginForm.addEventListener("keyup", validateForm);
+loginForm.addEventListener("change", validateForm);
+loginForm.addEventListener('submit', loginFormHandler);
