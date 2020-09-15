@@ -1,0 +1,33 @@
+<form id="radio-form">
+  <label for="url-radio">Screenshot Webpage</label>
+  <input id="url-radio" name="add-method" type="radio" checked>
+  
+  <label for="file-radio">Upload File</label>
+  <input id="file-radio" name="add-method" type="radio">
+</form>
+
+<form id="url-screenshot-form" style="display:block">
+  <label for="url-input">Enter full url:</label>
+  <input id="url-input" type="text">
+
+  <label for="url-caption-input">Enter a caption:</label>
+  <input id="url-caption-input" type="text">
+  
+  <br>
+  <button type="submit">Submit</button>
+</form>
+
+<form id="file-upload-form" style="display:none">
+  <label for="file-input">Enter a file:</label>
+  <input id="file-input" type="file">
+
+  <div id="image-preview"></div>
+
+  <label for="file-caption-input">Enter a caption:</label>
+  <input id="file-caption-input" type="text">
+
+  <br>
+  <button type="submit">Submit</button>
+</form>
+
+<script src="/javascript/add-post.js"></script>

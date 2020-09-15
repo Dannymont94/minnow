@@ -12,16 +12,26 @@ router.get('/', withAuth, (req, res) => {
                 model: User,
                 attributes: ['username']
             }
+        ],
+        order: [
+            ['id', 'DESC']
         ]
     })
     .then(dbPostData => {
         const posts = dbPostData.map(post => post.get({ plain: true }));
-        res.status(200).render('dashboard', { posts });
+        res.status(200).render('dashboard', {
+            posts,
+            loggedIn: req.session.loggedIn
+        });
     })
     .catch( err => {
         console.log(err);
         res.status(500).json(err);
     });
+});
+
+router.get('/add-post', withAuth, (req, res) => {
+    res.render('add-post', { loggedIn: req.session.loggedIn });
 });
 
 router.get('/edit/:id', withAuth, (req, res) => {
@@ -42,7 +52,10 @@ router.get('/edit/:id', withAuth, (req, res) => {
             return;
         }
         const post = dbPostData.get({ plain: true });
-        res.render('edit-post', { post });
+        res.render('edit-post', {
+            post,
+            loggedIn: req.session.loggedIn
+        });
     })
     .catch(err => {
         console.log(err);
@@ -63,12 +76,22 @@ router.get('/favorites', withAuth, (req, res) => {
                     attributes: ['username']
                 }
             }
+        ],
+        order: [
+            ['id', 'DESC']
         ]
     })
     .then(dbPostData => {
         const posts = dbPostData.map(post => post.get({ plain: true }));
-        res.status(200).render('favorites', { posts });
+        res.status(200).render('favorites', {
+            posts,
+            loggedIn: req.session.loggedIn
+        });
     })
-})
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
 
 module.exports = router;

@@ -1,0 +1,16 @@
+<article class="post" data-post-id="{{id}}">
+  <a href="/post/{{id}}">
+    <div>
+      <img src="{{path}}">
+    </div>
+    <div class="description">
+      <p>{{caption}}</p>
+      <p>{{user.username}}</p>
+    </div>
+    {{#if favorited}}
+    <input class="favorite-checkbox" type="checkbox" checked />
+    {{else}}
+    <input class="favorite-checkbox" type="checkbox" />
+    {{/if}}
+  </a>
+</article>
