@@ -1,2 +1,11 @@
-<script src="/javascript/file-handling"></script>
-<script src="/javascript/url-handling"></script>
+<h2>Your Posts</h2>
+<p><a href="/dashboard/add-post">Create New Post</a></p>
+<p><a href="/dashboard/favorites">See Your Favorites</a></p>
+
+<section class="posts">
+  {{#each posts as |post|}}
+  {{> post-info post}}
+  {{/each}}
+</section>
+
+<script src="/javascript/favorite.js"></script>
