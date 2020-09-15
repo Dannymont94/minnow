@@ -1,4 +1,4 @@
-const postImage = document.getElementById('post-image');
+const postImage = document.querySelector('img');
 
 function componentToHex(rgb) {
   var hex = rgb.toString(16);
