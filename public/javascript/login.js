@@ -4,8 +4,8 @@ const submitBtn = document.getElementById('submit-btn');
 async function validateForm() {
   let canSubmit = true;
 
-  for (let i = 0; i < signupForm.length - 1; i++) {
-    const current = signupForm[i];
+  for (let i = 0; i < loginForm.length - 1; i++) {
+    const current = loginForm[i];
     if (/\s/.test(current.value)) {
       // contains whitespace characters
       canSubmit = false;
