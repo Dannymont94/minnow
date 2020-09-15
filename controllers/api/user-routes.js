@@ -35,6 +35,7 @@ router.get('/:id', async (req, res) => {
         },
         {
           model: Favorite,
+          attributes: ['post_id'],
           include: {
             model: Post,
             attributes: ['id', 'path', 'caption', 'created_at']

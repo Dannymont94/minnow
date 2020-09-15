@@ -3,12 +3,8 @@ const multer = require('multer');
 const upload = multer();
 const { User, Post, Favorite } = require('../../models');
 const takeScreenshot = require('../../utils/screenshot');
-const uploadFile = require('../../utils/upload');
+// const uploadFile = require('../../utils/upload');
 const aws = require('aws-sdk');
-const upload = require('../../utils/upload');
-
-
-
 
 // get all posts
 router.get('/', async (req, res) => {
@@ -63,9 +59,6 @@ router.post('/url', async (req, res) => {
     
     // const imageBin is binary string of image returned by puppeteer
     // code to save image to S3 bucket should be imported from the utils folder and go here
-   
-    upload.array('upl',1);
-
 
     // save image in S3 bucket with fileName as the file name
 
@@ -85,7 +78,7 @@ router.post('/url', async (req, res) => {
 });
 
 // create new post from uploaded local file
-router.post('/file', upload.array('upl',1), async (req, res) => {
+router.post('/file', upload.single('file'), async (req, res) => {
   try {
     const { buffer: imageBin } = req.file;
     const { caption } = req.body;
