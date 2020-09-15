@@ -54,16 +54,6 @@ Post.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    palette: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      get() {
-        return this.getDataValue('palette').split(';');
-      },
-      set(value) {
-        return this.setDataValue('palette', value.join(';'));
-      }
-    },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

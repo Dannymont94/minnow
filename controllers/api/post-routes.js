@@ -69,15 +69,10 @@ router.post('/url', async (req, res) => {
 
     // save image in S3 bucket with fileName as the file name
 
-
-    // code to parse color palette will go here. Hard-coding palette for now.
-    const palette = ["#aa72a6", "#5876d3", "#04d010", "#2d499e", "#ff8161"];
-
     const dbPostData = await Post.create({
       source: url,
       path: fileName,
       caption,
-      palette,
       user_id
     });
 
@@ -114,14 +109,10 @@ router.post('/file', upload.array('upl',1), async (req, res) => {
     // save image in S3 bucket with const fileName as the file name
     // function added to the router.post declaration "upload.array('upl',1)" this will run the function from upload.js
 
-    // code to parse color palette will go here. Hard-coding palette for now.
-    const palette = ["#aa72a6", "#5876d3", "#04d010", "#2d499e", "#ff8161"];
-
     const dbPostData = await Post.create({
       source: 'Local file uploaded',
       path: fileName,
       caption,
-      palette,
       user_id
     });
 
@@ -185,8 +176,7 @@ router.put('/:id', async (req, res) => {
     const updateBody = {
       caption,
       path: dbPostData.path,
-      user_id: dbPostData.user_id,
-      palette: dbPostData.palette
+      user_id: dbPostData.user_id
     };
 
     const updatedPostData = await Post.update(updateBody, {
