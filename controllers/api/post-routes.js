@@ -3,6 +3,7 @@ const multer = require('multer');
 const upload = multer();
 const { User, Post, Favorite } = require('../../models');
 const takeScreenshot = require('../../utils/screenshot');
+const withAuth = require('../../utils/auth');
 // const uploadFile = require('../../utils/upload');
 const aws = require('aws-sdk');
 
@@ -40,7 +41,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // create new post from url screenshot
-router.post('/url', async (req, res) => {
+router.post('/url', withAuth, async (req, res) => {
   try {
     const { url, caption } = req.body;
     const { user_id } = req.session;
@@ -78,7 +79,7 @@ router.post('/url', async (req, res) => {
 });
 
 // create new post from uploaded local file
-router.post('/file', upload.single('file'), async (req, res) => {
+router.post('/file', withAuth, upload.single('file'), async (req, res) => {
   try {
     const { buffer: imageBin } = req.file;
     const { caption } = req.body;
@@ -118,7 +119,7 @@ router.post('/file', upload.single('file'), async (req, res) => {
 });
 
 // favorite a post
-router.put('/favorite', async (req, res) => {
+router.put('/favorite', withAuth, async (req, res) => {
   try {
     if (!req.body.post_id) {
       res.status(400).json({ message: `Needs value for post_id` });
@@ -147,7 +148,7 @@ router.put('/favorite', async (req, res) => {
 });
 
 // edit post by id
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
   try {
     const { caption } = req.body;
     if (!caption) {
@@ -187,7 +188,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // delete a post by id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
   try {
     const dbPostData = await Post.destroy({
       where: {
