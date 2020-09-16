@@ -4,9 +4,7 @@ const upload = multer();
 const { User, Post, Favorite } = require('../../models');
 const takeScreenshot = require('../../utils/screenshot');
 const withAuth = require('../../utils/auth');
-// const uploadFile = require('../../utils/upload');
-const aws = require('aws-sdk');
-const { uploadFile } = require('../../utils/upload');
+const uploadFile = require('../../utils/upload');
 
 // get all posts
 router.get('/', async (req, res) => {
@@ -135,7 +133,6 @@ router.put('/favorite', withAuth, async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
-  
 });
 
 // edit post by id
