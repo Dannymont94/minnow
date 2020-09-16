@@ -1,29 +1,63 @@
 const router = require('express').Router();
-const {User, Post} = require('../models');
+const { User, Post, Favorite } = require('../models');
 
-router.get('/', (req, res) => {
-    Post.findAll({
-        include: [
-            {
-                model: User,
-                attributes: ['username']
+router.get('/', async (req, res) => {
+    if (req.session.user_id) {
+        const allPosts = await Post.findAll({
+            include: [
+                {
+                    model: User,
+                    attributes: ['username']
+                }
+            ],
+            order: [
+                ['id', 'DESC']
+            ]
+        });
+    
+        const usersFavoritedPosts = await Favorite.findAll({
+            where: {
+                user_id: req.session.user_id
+            },
+            attributes: ['post_id']
+        });
+    
+        const favorites = usersFavoritedPosts.map(post => {
+            return post.post_id
+        });
+    
+        const postsWithFavorite = allPosts.map(post => {
+            if (favorites.includes(post.id)) {
+                post.dataValues.favorited = true;
             }
-        ],
-        order: [
-            ['id', 'DESC']
-        ]
-    })
-    .then(dbPostData => {
-        const posts = dbPostData.map(post => post.get({ plain: true }));
+            return post;
+        });
+    
+        const posts = postsWithFavorite.map(post => post.get({ plain: true }));
+    
+        res.render('homepage', {
+            posts, 
+            loggedIn: req.session.loggedIn
+        });
+    } else {
+        const allPosts = await Post.findAll({
+            include: [
+                {
+                    model: User,
+                    attributes: ['username']
+                }
+            ],
+            order: [
+                ['id', 'DESC']
+            ]
+        })
+        
+        const posts = allPosts.map(post => post.get({ plain: true }));
         res.status(200).render('homepage', {
             posts,
             loggedIn: req.session.loggedIn
         });
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
+    }
 });
 
 router.get('/login', (req, res) => {
