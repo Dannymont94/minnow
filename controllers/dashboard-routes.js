@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const {User, Post, Favorite } = require('../models');
+const { User, Post, Favorite } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', withAuth, (req, res) => {
-    Post.findAll({
+router.get('/', withAuth, async (req, res) => {
+    const usersPosts = await Post.findAll({
         where: {
             user_id: req.session.user_id 
         },
@@ -16,17 +16,33 @@ router.get('/', withAuth, (req, res) => {
         order: [
             ['id', 'DESC']
         ]
-    })
-    .then(dbPostData => {
-        const posts = dbPostData.map(post => post.get({ plain: true }));
-        res.status(200).render('dashboard', {
+    });
+
+    const usersFavoritedPosts = await Favorite.findAll({
+        where: {
+            user_id: req.session.user_id
+        },
+        attributes: ['post_id']
+    });
+
+    const favorites = usersFavoritedPosts.map(post => {
+        return post.post_id
+    });
+
+    const postsWithFavorite = usersPosts.map(post => {
+        if (favorites.includes(post.id)) {
+            post.dataValues.favorited = true;
+        }
+        return post;
+    });
+
+    const posts = postsWithFavorite.map(post => post.get({ plain: true }));
+
+    res.render('dashboard', {
+        posts, 
             posts,
-            loggedIn: req.session.loggedIn
-        });
-    })
-    .catch( err => {
-        console.log(err);
-        res.status(500).json(err);
+        posts, 
+        loggedIn: req.session.loggedIn
     });
 });
 
@@ -82,7 +98,13 @@ router.get('/favorites', withAuth, (req, res) => {
         ]
     })
     .then(dbPostData => {
-        const posts = dbPostData.map(post => post.get({ plain: true }));
+        const favorites = dbPostData.map(post => post.get({ plain: true }));
+
+        const posts = favorites.map(favorite => {
+            favorite.post.favorited = true;
+            return favorite;
+        });
+
         res.status(200).render('favorites', {
             posts,
             loggedIn: req.session.loggedIn
