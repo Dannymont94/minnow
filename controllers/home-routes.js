@@ -3,62 +3,42 @@ const { User, Post, Favorite } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
-  if (req.session.user_id) {
-    const allPosts = await Post.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['username']
-        }
-      ],
-      order: [
-        ['id', 'DESC']
-      ]
-    });
-    
-    const usersFavoritedPosts = await Favorite.findAll({
-      where: {
-        user_id: req.session.user_id
-      },
-      attributes: ['post_id']
-    });
-    
-    const favorites = usersFavoritedPosts.map(post => {
-      return post.post_id
-    });
-    
-    const postsWithFavorite = allPosts.map(post => {
-      if (favorites.includes(post.id)) {
-        post.dataValues.favorited = true;
+  const allPosts = await Post.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ['username']
       }
-      return post;
-    });
-    
-    const posts = postsWithFavorite.map(post => post.get({ plain: true }));
-    
-    res.render('homepage', {
-      posts, 
-      loggedIn: req.session.loggedIn
-    });
-  } else {
-    const allPosts = await Post.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['username']
-        }
-      ],
-      order: [
-        ['id', 'DESC']
-      ]
-    });
-    
-    const posts = allPosts.map(post => post.get({ plain: true }));
-    res.status(200).render('homepage', {
-      posts,
-      loggedIn: req.session.loggedIn
-    });
-  }
+    ],
+    order: [
+      ['id', 'DESC']
+    ]
+  });
+
+  const usersFavoritedPosts = await Favorite.findAll({
+    where: {
+      user_id: req.session.user_id
+    },
+    attributes: ['post_id']
+  });
+
+  const favorites = usersFavoritedPosts.map(post => {
+    return post.post_id
+  });
+
+  const postsWithFavorite = allPosts.map(post => {
+    if (favorites.includes(post.id)) {
+      post.dataValues.favorited = true;
+    }
+    return post;
+  });
+
+  const posts = postsWithFavorite.map(post => post.get({ plain: true }));
+
+  res.render('homepage', {
+    posts, 
+    loggedIn: req.session.loggedIn
+  });
 });
 
 router.get('/login', (req, res) => {
