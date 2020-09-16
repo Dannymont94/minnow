@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { User, Post, Favorite } = require('../models');
+const withAuth = require('../utils/auth');
 
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   if (req.session.user_id) {
     const allPosts = await Post.findAll({
       include: [
@@ -76,7 +77,7 @@ router.get('/signup', (req, res) => {
   res.status(200).render('signup');
 });
 
-router.get('/post/:id', (req, res) => {
+router.get('/post/:id', withAuth, (req, res) => {
   Post.findOne({
     where: {
       id: req.params.id
