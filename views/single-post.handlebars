@@ -1,16 +1,18 @@
-<article class="post" data-post-id="{{post.id}}">
+<article id="single-post" class="post" data-post-id="{{post.id}}">
   <div>
     <img src="{{post.path}}">
   </div>
-  <div class="description">
     <p>{{post.caption}}</p>
-    <p>{{post.user.username}}</p>
+  <div class="flex">
+    {{#if post.favorited}}
+    <input class="favorite-checkbox" type="checkbox" checked />
+    {{else}}
+    <input class="favorite-checkbox" type="checkbox" />
+    {{/if}}
+    <div class="description">
+      <p>{{post.user.username}}</p>
+    </div>
   </div>
-  {{#if post.favorited}}
-  <input class="favorite-checkbox" type="checkbox" checked />
-  {{else}}
-  <input class="favorite-checkbox" type="checkbox" />
-  {{/if}}
 </article>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
