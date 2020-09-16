@@ -1,4 +1,17 @@
-{{> post-info post}}
+<article id="post" data-post-id="{{post.id}}">
+  <div>
+    <img src="{{post.path}}">
+  </div>
+  <div class="description">
+    <p>{{post.caption}}</p>
+    <p>{{post.user.username}}</p>
+  </div>
+  {{#if post.favorited}}
+  <input class="favorite-checkbox" type="checkbox" checked />
+  {{else}}
+  <input class="favorite-checkbox" type="checkbox" />
+  {{/if}}
+</article>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 <script src="/javascript/color-palette.js"></script>
