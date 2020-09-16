@@ -6,6 +6,7 @@ const takeScreenshot = require('../../utils/screenshot');
 const withAuth = require('../../utils/auth');
 // const uploadFile = require('../../utils/upload');
 const aws = require('aws-sdk');
+const { uploadFile } = require('../../utils/upload');
 
 // get all posts
 router.get('/', async (req, res) => {
@@ -55,17 +56,13 @@ router.post('/url', withAuth, async (req, res) => {
       return;
     }
 
-    // takeScreenshot currently saves an image to the public folder every time the function is called. We can remove this part of the code once we have the S3 bucket route working.
-    const { screenshot: imageBin , fileName } = await takeScreenshot(url);
-    
-    // const imageBin is binary string of image returned by puppeteer
-    // code to save image to S3 bucket should be imported from the utils folder and go here
+    const imageBin = await takeScreenshot(url);
 
-    // save image in S3 bucket with fileName as the file name
+    const path = await uploadFile(imageBin);
 
     const dbPostData = await Post.create({
       source: url,
-      path: fileName,
+      path,
       caption,
       user_id
     });
@@ -95,17 +92,11 @@ router.post('/file', withAuth, upload.single('file'), async (req, res) => {
       return;
     }
 
-    const fileName = Date.now();
-
-    // const imageBin is binary string of uploaded image
-    // code to save image to S3 bucket should be imported from the utils folder and go here
-    
-    // save image in S3 bucket with const fileName as the file name
-    // function added to the router.post declaration "upload.array('upl',1)" this will run the function from upload.js
+    const path = await uploadFile(imageBin);
 
     const dbPostData = await Post.create({
       source: 'Local file uploaded',
-      path: fileName,
+      path,
       caption,
       user_id
     });
