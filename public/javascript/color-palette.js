@@ -9,8 +9,6 @@ function rgbToHex(palette) {
   return palette.map(rgbArray => `#${componentToHex(rgbArray[0])}${componentToHex(rgbArray[1])}${componentToHex(rgbArray[2])}`);
 }
 
-postImage.crossOrigin = 'Anonymous';
-
 const colorThief = new ColorThief();
 
 // check if image is already loaded

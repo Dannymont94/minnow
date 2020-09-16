@@ -1,2 +1,14 @@
+<h2></h2>
+
+<article id="post" data-post-id="{{post.id}}">
+  <button id="delete-post-btn"><img src="https://static.thenounproject.com/png/304-200.png" height="20px"></button>
+  <div>
+    <img src="{{post.path}}">
+  </div>
+  <form id="edit-post-form">
+    <input type="text" id="caption-input" value="{{post.caption}}" />
+    <button type="submit">Confirm Changes</button>
+  </form>
+</article>
+
 <script src="/javascript/edit-post.js"></script>
-<script src="/javascript/delete-post.js"></script>
