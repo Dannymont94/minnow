@@ -57,8 +57,8 @@ router.get('/signup', (req, res) => {
   res.status(200).render('signup');
 });
 
-router.get('/post/:id', withAuth, (req, res) => {
-  Post.findOne({
+router.get('/post/:id', withAuth, async (req, res) => {
+  const singlePost = await Post.findAll({
     where: {
       id: req.params.id
     },
@@ -68,21 +68,37 @@ router.get('/post/:id', withAuth, (req, res) => {
         attributes: ['username']
       }
     ]
-  }).then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
-        return;
-      }
-      const post = dbPostData.get({ plain: true });
+  });
 
-      res.status(200).render('single-post', {
-        post,
-        loggedIn: req.session.loggedIn 
-      });
-  }).catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+  if (!singlePost[0]) {
+    res.status(404).json({ message: 'No post found with that id' });
+    return;
+  }
+
+  const usersFavoritedPosts = await Favorite.findAll({
+    where: {
+      user_id: req.session.user_id
+    },
+    attributes: ['post_id']
+  });
+
+  const favorites = usersFavoritedPosts.map(post => {
+    return post.post_id
+  });
+
+  const postsWithFavorite = singlePost.map(post => {
+    if (favorites.includes(post.id)) {
+      post.dataValues.favorited = true;
+    }
+    return post;
+  });
+
+  const posts = postsWithFavorite.map(post => post.get({ plain: true }));
+
+  res.status(200).render('single-post', {
+    post: posts[0],
+    loggedIn: req.session.loggedIn 
+  });
 });
 
 module.exports = router;
