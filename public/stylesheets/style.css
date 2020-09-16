@@ -1,28 +1,38 @@
 * {
     box-sizing: border-box;
 }
+
 body {
-	background: linear-gradient(-45deg, #002535, #003851, #22646e, #3b89ac);
-	background-size: 400% 400%;
+	background: linear-gradient(-45deg, #002535, #003851, #22646e);
+	background-size: 15000% 15000%;
 	animation: gradient 15s ease infinite;
 }
+
 body, html {
     height: 100%;
     padding: 0;
     margin: 0;
     font-family: sans-serif;
-    color: #fff;
+    color: #ffffff;
 }
 
 a {
     text-decoration: none;
-    color: #225ca3;
+    color: #ffffff;
     font-weight: bold;
     transition: color .1s;
 }
 
 a:hover {
-    color: #3486eb;
+    color: #1dacee;
+}
+
+#logout {
+    color: #ffffff
+}
+
+#logout:hover {
+    color: #1dacee
 }
 
 button {
@@ -37,7 +47,7 @@ button {
 }
 
 button:hover {
-    background-color: #3486eb;
+    background-color: #1dacee;
 }
 
 .post-list {
@@ -56,9 +66,29 @@ textarea:focus, input:focus {
     border: 1px solid #3486eb;
 }
 
-textarea {
-    min-width: 40%;
-    min-height: 100px;
+#radio-form div,
+#radio-form div input,
+#radio-form div label {
+    display: inline;
+    padding-bottom: 5px;
+}
+
+#radio-form div label:hover {
+    color: #1dacee;
+}
+
+#radio-form div input {
+    display: none;
+}
+
+#url-radio-label {
+    border-bottom: #cff03f solid 3px;
+}
+
+#url-input,
+#url-caption-input,
+#file-caption-input {
+    width: 90%;
 }
 
 form > div {
@@ -113,11 +143,11 @@ main {
     color: #3486eb;
 }
 
-.delete-post-btn {
+#delete-post-btn {
     background-color: #d41414;
 }
 
-.delete-post-btn:hover {
+#delete-post-btn:hover {
     background-color: #ff643d;
 }
 
@@ -180,6 +210,7 @@ footer {
     padding: 1%;
     font-size: 110%;
 }
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
