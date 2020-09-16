@@ -1,3 +1,3 @@
-DROP DATABASE IF EXISTS snapshots_db;
+DROP DATABASE IF EXISTS minnow_db;
 
-CREATE DATABASE snapshots_db;
+CREATE DATABASE minnow_db;
