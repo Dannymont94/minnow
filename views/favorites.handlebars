@@ -2,8 +2,14 @@
 
 <section class="posts">
   {{#each posts as |post|}}
-  {{> post-info post.post}}
+  <div class="content">
+    <article class="post" data-post-id="{{post.post.id}}">
+      {{> post-info post.post}}
+    </article>
+  </div>
   {{/each}}
 </section>
 
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script src="/javascript/grid-resize.js"></script>
 <script src="/javascript/favorite.js"></script>

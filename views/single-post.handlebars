@@ -1,8 +1,5 @@
 <article id="single-post" class="post" data-post-id="{{post.id}}">
-  <div>
     <img src="{{post.path}}">
-  </div>
-    <p>{{post.caption}}</p>
   <div class="flex">
     {{#if post.favorited}}
     <input class="favorite-checkbox" type="checkbox" checked />
@@ -13,6 +10,7 @@
       <p>{{post.user.username}}</p>
     </div>
   </div>
+  <p>{{post.caption}}</p>
 </article>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>

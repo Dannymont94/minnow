@@ -1,17 +1,15 @@
-<article class="post" data-post-id="{{id}}">
-  <a class="post-link" href="/post/{{id}}">
-    <div>
-      <img src="{{path}}">
-    </div>
-    <div class="flex">
-      {{#if favorited}}
-      <input class="favorite-checkbox" type="checkbox" checked />
-      {{else}}
-      <input class="favorite-checkbox" type="checkbox" />
-      {{/if}}
-      <div class="description">
-        <p>{{user.username}}</p>
-      </div>
-    </div>
-  </a>
-</article>
+<a class="post-link" href="/post/{{id}}">
+  <div>
+    <img src="{{path}}">
+  </div>
+</a>
+<div class="flex">
+  {{#if favorited}}
+  <input class="favorite-checkbox" type="checkbox" checked />
+  {{else}}
+  <input class="favorite-checkbox" type="checkbox" />
+  {{/if}}
+  <div class="description">
+    <p>{{user.username}}</p>
+  </div>
+</div>

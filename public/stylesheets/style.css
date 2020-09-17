@@ -24,6 +24,10 @@ a {
     transition: color .1s;
 }
 
+a img {
+    transition: color 10s;
+}
+
 a:hover {
     color: #1dacee;
 }
@@ -64,13 +68,13 @@ button:hover {
     padding: 0;
 }
 
-textarea, input {
+input {
     padding: .5%;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
-textarea:focus, input:focus {
+input:focus {
     outline: none;
     border: 1px solid #3486eb;
 }
@@ -162,13 +166,36 @@ main {
     background-color: #ff643d;
 }
 
+.posts {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 1px;
+}
+
+.content {
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    max-height: 450px;
+}
+
 .post {
-    margin-bottom: 2%;
+    margin-bottom: 0;
     line-height: 150%;
+}
+
+.post p {
+    font-weight: bold;
 }
 
 .post img {
     width: 250px;
+    border-radius: 5px;
+}
+.post div img {
+    object-fit: cover;
+    max-height: 450px;
 }
 
 .flex {
@@ -223,22 +250,17 @@ main {
 }
 
 #single-post img {
+    border-radius: 5px;
     width: auto;
     max-width: 60%;
+    float: left;
+    margin-right: 25px;
 }
 
 #single-post p {
     font-weight: bold;
 }
 
-.edit-link {
-    display: block;
-    margin: -1.5% 0 2% 0;
-}
-
-.edit-post-form {
-    margin-bottom: 5%;
-}
 
 @keyframes gradient {
 	0% {
