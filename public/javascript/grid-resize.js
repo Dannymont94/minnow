@@ -8,8 +8,8 @@ function resizeGridItem(content){
 
 function resizeAllGridItems(){
   const allItems = document.getElementsByClassName("content");
-  for(x=0; x<allItems.length; x++){
-    imagesLoaded(allItems[x], resizeInstance);
+  for(let i = 0; i < allItems.length; i++){
+    imagesLoaded(allItems[i], resizeInstance);
   }
 }
 
