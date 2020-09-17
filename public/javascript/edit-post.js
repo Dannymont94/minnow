@@ -1,5 +1,6 @@
 const captionInput = document.getElementById('caption-input');
 const postEl = document.getElementById('post');
+const feedbackEl = document.getElementById('feedback');
 
 async function editFormHandler(event) {
   event.preventDefault();
@@ -20,7 +21,7 @@ async function editFormHandler(event) {
   if (response.ok) {
     document.location.replace('/dashboard');
   } else {
-    alert(response.statusText);
+    feedbackEl.innerHTML = `${response.statusText}`;
   }
 }
 
@@ -36,7 +37,7 @@ async function deleteFormHandler(event) {
   if (response.ok) {
     document.location.replace('/dashboard');
   } else {
-    alert(response.statusText);
+    feedbackEl.innerHTML = `${response.statusText}`;
   }
 }
 

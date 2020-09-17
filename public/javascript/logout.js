@@ -7,8 +7,6 @@ async function logout() {
   if (response.ok) {
     // redirect user to home page
     document.location.replace('/');
-  } else {
-    alert(response.statusText);
   }
 }
 

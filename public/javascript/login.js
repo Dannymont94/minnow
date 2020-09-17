@@ -1,5 +1,6 @@
 const loginForm = document.getElementById('login-form');
 const submitBtn = document.getElementById('submit-btn');
+const feedbackEl = document.getElementById('feedback');
 
 async function validateForm() {
   let canSubmit = true;
@@ -36,7 +37,7 @@ async function loginFormHandler(event) {
     if (response.ok) {
       document.location.replace('/');
     } else {
-      alert(response.statusText);
+      feedbackEl.innerHTML = `${response.statusText}`;
     }
   }
 }

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Minnow</title>
-<link href="https://fonts.googleapis.com/css2?family=Alice&family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alice&family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 
 <body>
   <div class="wrapper">
     <header>
-      <a id="title" href="/"><h1>Minnow</h1></a>
+      <a id="title" class="animated-text" href="/">
+        <h1>Minnow</h1>
+      </a>
       <nav>
         {{#if loggedIn}}
         <div id="dropdown">
@@ -25,15 +27,16 @@
         </div>
         <button id="logout" class="btn-no-style">Logout</button>
         {{/if}}
-        </nav>
-        </header>
-        <main>
-        {{{ body }}}
-        </main>
-    </div>
-    
-    {{#if loggedIn}}
-    <script src="/javascript/logout.js"></script>
-    {{/if}}
+      </nav>
+    </header>
+    <main>
+      {{{ body }}}
+    </main>
+  </div>
+
+  {{#if loggedIn}}
+  <script src="/javascript/logout.js"></script>
+  {{/if}}
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 const signupForm = document.getElementById('signup-form');
 const submitBtn = document.getElementById('submit-btn');
+const feedbackEl = document.getElementById('feedback');
 
 async function validateById(id, value) {
   let isValid = true;
@@ -31,19 +32,23 @@ async function validateForm() {
     const current = signupForm[i];
     if (/\s/.test(current.value)) {
       // contains whitespace characters
-      document.getElementById(`${current.id}-img`).src = 'https://static.thenounproject.com/png/114046-200.png';
+      document.getElementById(`${current.id}-img`).src = '/icons/x.png';
+      document.getElementById(`${current.id}-img`).alt = 'field value does not meet requirements';
       canSubmit = false;
     } else if (current.value.length == 0) {
       // input is blank
       document.getElementById(`${current.id}-img`).src = '';
+      document.getElementById(`${current.id}-img`).alt = '';
       canSubmit = false;
     } else {
       if (await validateById(current.id, current.value)) {
         // meets all requirements
-        document.getElementById(`${current.id}-img`).src = 'https://static.thenounproject.com/png/6156-200.png';
+        document.getElementById(`${current.id}-img`).src = '/icons/check.png';
+        document.getElementById(`${current.id}-img`).alt = 'field value meets all requirements';
       } else {
         // does not meet the requirements
-        document.getElementById(`${current.id}-img`).src = 'https://static.thenounproject.com/png/114046-200.png';
+        document.getElementById(`${current.id}-img`).src = '/icons/x.png';
+        document.getElementById(`${current.id}-img`).alt = 'field value does not meet requirements';
         canSubmit = false;
       }
     }
@@ -72,7 +77,7 @@ async function signupFormHandler(event) {
     if (response.ok) {
       document.location.replace('/');
     } else {
-      alert(response.statusText);
+      feedbackEl.innerHTML = `${response.statusText}`;
     }
   }
 }
