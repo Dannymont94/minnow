@@ -33,6 +33,7 @@ async function validateForm() {
     if (/\s/.test(current.value)) {
       // contains whitespace characters
       document.getElementById(`${current.id}-img`).src = '/icons/x.png';
+      document.getElementById(`${current.id}-img`).alt = 'field value does not meet requirements';
       canSubmit = false;
     } else if (current.value.length == 0) {
       // input is blank
@@ -42,9 +43,11 @@ async function validateForm() {
       if (await validateById(current.id, current.value)) {
         // meets all requirements
         document.getElementById(`${current.id}-img`).src = '/icons/check.png';
+        document.getElementById(`${current.id}-img`).alt = 'field value meets all requirements';
       } else {
         // does not meet the requirements
         document.getElementById(`${current.id}-img`).src = '/icons/x.png';
+        document.getElementById(`${current.id}-img`).alt = 'field value does not meet requirements';
         canSubmit = false;
       }
     }
