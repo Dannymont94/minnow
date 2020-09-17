@@ -4,21 +4,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project 2</title>
+  <title>Minnow</title>
+<link href="https://fonts.googleapis.com/css2?family=Alice&family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 
 <body>
-    <div class="wrapper">
-        <header>
-        <h1>
-            <a href="/">Minnow</a>
-        </h1>
-        <nav>
-            {{#if loggedIn}}
-            <a href="/dashboard">dashboard</a>
-            <button id="logout" class="btn-no-style">logout</button>
-            {{/if}}
+  <div class="wrapper">
+    <header>
+      <a id="title" href="/"><h1>Minnow</h1></a>
+      <nav>
+        {{#if loggedIn}}
+        <div id="dropdown">
+          <button id="dropbtn" class="btn-no-style">Dashboard</button>
+          <div class="dropdown-content">
+            <a href="/dashboard">Your Posts</a>
+            <a href="/dashboard/favorites">Your Favorites</a>
+            <a href="/dashboard/add-post">Create Post</a>
+          </div>
+        </div>
+        <button id="logout" class="btn-no-style">Logout</button>
+        {{/if}}
         </nav>
         </header>
         <main>
