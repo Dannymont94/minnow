@@ -1,7 +1,7 @@
 <h2></h2>
 
 <article id="post" data-post-id="{{post.id}}">
-  <button id="delete-post-btn"><img src="https://static.thenounproject.com/png/304-200.png" height="20px"></button>
+  <button id="delete-post-btn"><img src="/icons/trash.png" height="30px"></button>
   <div id="edit-post">
     <img src="{{post.path}}">
   </div>
@@ -10,8 +10,10 @@
     <label for="caption-input">New caption:</label>
     <input type="text" id="caption-input" value="{{post.caption}}" />
     <br><br>
-    <button type="submit">Confirm Changes</button>
+    <button type="submit">Update</button>
   </form>
 </article>
+
+<p id="feedback"></p>
 
 <script src="/javascript/edit-post.js"></script>

@@ -26,12 +26,22 @@ h1 {
     margin: 0;
 }
 
+#login-link,
+#signup-link {
+    color: #cff03f;
+}
+
+#login-link:hover,
+#signup-link:hover {
+    color: #1dacee;
+}
+
 #dropbtn {
     color: #ffffff;
     padding: 16px;
     font-size: 16px;
     border: none;
-  }
+}
   
 #dropdown {
     position: relative;
@@ -306,6 +316,16 @@ main {
     width: auto;
     max-width: 70%;
     margin-right: 25px;
+}
+
+.favorite-checkbox:hover {
+    cursor: pointer;
+}
+
+#edit-arrow {
+    display: inline-block;
+    height: 18px;
+    width: 18px;
 }
 
 #single-post img {

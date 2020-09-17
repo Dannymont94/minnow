@@ -1,24 +1,26 @@
 <form id="signup-form">
   <div>
-    <label for="username-signup">username:</label>
+    <label for="username-signup">Username:</label>
     <input type="text" id="username-signup" />
     <img id="username-signup-img" height="20px" src="">
   </div>
   <div>
-    <label for="email-signup">email:</label>
+    <label for="email-signup">Email:</label>
     <input type="text" id="email-signup" />
     <img id="email-signup-img" height="20px" src="">
   </div>
   <div>
-    <label for="password-signup">password:</label>
+    <label for="password-signup">Password:</label>
     <input type="text" id="password-signup" />
     <img id="password-signup-img" height="20px" src="">
   </div>
   <div>
-    <button id="submit-btn" type='submit'>signup</button>
+    <button id="submit-btn" type='submit'>Sign Up</button>
   </div>
 </form>
 
-<p>Already have an account? <a href="/login">Log in.</a></p>
+<p>Already have an account? <a id="login-link" href="/login">Log in.</a></p>
+
+<p id="feedback"></p>
 
 <script src="/javascript/signup.js"></script>
