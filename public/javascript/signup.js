@@ -38,6 +38,7 @@ async function validateForm() {
     } else if (current.value.length == 0) {
       // input is blank
       document.getElementById(`${current.id}-img`).src = '';
+      document.getElementById(`${current.id}-img`).alt = '';
       canSubmit = false;
     } else {
       if (await validateById(current.id, current.value)) {
