@@ -3,10 +3,21 @@
 }
 
 body {
-	background: linear-gradient(-45deg, #002535, #003851, #22646e);
+    background: linear-gradient(-45deg, #002535, #003851, #22646e);
 	background-size: 15000% 15000%;
     animation: gradient 15s ease infinite;
     word-wrap: break-word;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 body, html {
@@ -22,8 +33,36 @@ body, html {
     font-family: 'Alice', serif;
 }
 
+#title:hover {
+    cursor: pointer;
+    color: #ffffff;
+}
+
 h1 {
     margin: 0;
+}
+
+.animated-text {
+    font-family: 'Coiny', cursive;
+    -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;	
+    background-image: url(https://previews.123rf.com/images/timurgarifov/timurgarifov1708/timurgarifov170800096/84664007-pattern-fish-swimming-in-blue-sea-fish-pattern.jpg);
+    background-size: auto;
+    background-attachment: unset;
+    background-position: 100%;
+    animation: animation infinite 120s;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+    animation-timing-function: linear;
+}
+@keyframes animation {
+    0% {
+        background-position: 0%;	
+    }
+    100% {
+        background-position: 100%;	
+
+    }
 }
 
 #login-link,
@@ -41,6 +80,10 @@ h1 {
     padding: 16px;
     font-size: 16px;
     border: none;
+}
+
+#dropbtn:hover {
+    color: #1dacee;
 }
   
 #dropdown {
@@ -70,29 +113,24 @@ h1 {
   
 #dropdown:hover .dropdown-content {
     display: block;
-}
-  
-#dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-}
+}  
 
 a {
     text-decoration: none;
     color: #ffffff;
     font-weight: bold;
-    transition: color .1s;
 }
 
 a img {
-    transition: color 10s;
+    transition: all .3s;
 }
 
 a:hover {
     color: #1dacee;
 }
 
-a:hover img {
-    filter: brightness(70%);
+a:hover .post-img {
+    box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.8);
 }
 
 .post-link {
@@ -114,7 +152,7 @@ button {
     padding: 1%;
     color: #ffffff;
     font-weight: bold;
-    transition: background-color .1s;
+    transition: all .1s;
     cursor: pointer;
     border-radius: 5px;
 }
@@ -335,19 +373,6 @@ main {
 #single-post p,
 label {
     font-weight: bold;
-}
-
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
 }
 
 @media only screen and (max-width: 554px) {
