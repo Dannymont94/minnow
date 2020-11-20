@@ -25,8 +25,13 @@ With Minnow, remembering website designs, layouts, and styling is a thing of the
 Visit our [deployed app here](https://nameless-river-82781.herokuapp.com/).
 
 ## Screenshots
+### Home Page
 ![homepage](https://user-images.githubusercontent.com/65088117/93543128-bb9f2a80-f928-11ea-8cfb-511ce7757b05.png)
+
+### Create a Post
 ![add-post](https://user-images.githubusercontent.com/65088117/93543202-f43f0400-f928-11ea-83b3-c993fe8e4b0c.png)
+
+### Favorites Page
 ![favorites](https://user-images.githubusercontent.com/65088117/93543267-218bb200-f929-11ea-9307-ac8ea877ffba.png)
 
 ## Future Development
@@ -34,8 +39,8 @@ Visit our [deployed app here](https://nameless-river-82781.herokuapp.com/).
 * Color palette parser for single-post view
 * Ability to follow users and see their posts
 * Ability to store instance of site and be able to interact with it (similar to Wayback Machine)
-* Ability to access URLs that require authentication
-* Ability to capture screenshots for any screen size
+* Ability to access URLs that require site authentication (like a Facebook profile)
+* Ability to capture screenshots at different screen dimensions
 * Improve site performance
 
 ## Contributing
